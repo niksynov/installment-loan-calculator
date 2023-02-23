@@ -11,7 +11,7 @@ Given total amount is `5000`, interest rate per month `9.63%` and number of paym
 ````
 use NikSynov\InstallmentLoanCalculator\Calculator;
 
-$payments = Calculator::calculate(5000, 0.96, 36)
+$payments = Calculator::calculate(5000, 9.63, 36)
 ````
 
 Method will return array of 36 monthly payments with `month`, `beginningBalance`, `interest`, `principalRepayment`, `emi` and `endingBalance`:
