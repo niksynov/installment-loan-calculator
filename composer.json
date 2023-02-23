@@ -1,0 +1,17 @@
+{
+    "name": "niksynov/installment-loan-calculator",
+    "description": "PHP package for installment loan calculation",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Mykyta Synov"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "NikSynov\\InstallmentLoanCalculator\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
