@@ -1,6 +1,10 @@
 # installment-loan-calculator
 PHP package for installment loan calculation
 
+## Installation:
+
+`composer require niksynov/installment-loan-calculator`
+
 ## Usage:
 
 Given total amount is `5000`, interest rate per month `9.63%` and number of payments is `36`
