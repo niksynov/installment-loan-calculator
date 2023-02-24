@@ -76,8 +76,6 @@ class Calculator
             );
         }
 
-        var_dump($payments);
-
         return $payments;
     }
 
