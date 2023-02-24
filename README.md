@@ -7,14 +7,14 @@ PHP package for installment loan calculation
 
 ## Usage:
 
-Given total amount is `5000`, interest rate per month `9.63%` and number of payments is `36`
+Given total amount is `100000`, interest rate per month is `0.5%` and number of payments is `36`
 ````
 use NikSynov\InstallmentLoanCalculator\Calculator;
 
-$payments = Calculator::calculate(5000, 9.63, 36)
+$payments = Calculator::calculate(100000, 0.5, 36)
 ````
 
-Method will return array of 36 monthly payments with `month`, `beginningBalance`, `interest`, `principalRepayment`, `emi` and `endingBalance`:
+Method will return array of 36 monthly payments with `month`, `beginningBalance`, `interest`, `principal`, `emi` and `endingBalance`:
 ````
 array(36) {
   [0]=>
@@ -22,15 +22,15 @@ array(36) {
     ["month"]=>
     int(1)
     ["beginningBalance"]=>
-    float(5000)
+    loat(100000)
     ["interest"]=>
-    float(481.5)
-    ["principalRepayment"]=>
-    float(18.25)
+    float(500)
+    ["principal"]=>
+    float(2542.19)
     ["emi"]=>
-    float(499.75)
+    float(3042.19)
     ["endingBalance"]=>
-    float(4981.75)
+    float(97457.81)
   }
 ...
   [35]=>
@@ -38,15 +38,18 @@ array(36) {
       ["month"]=>
       int(36)
       ["beginningBalance"]=>
-      float(455.85)
+      float(3027.06)
       ["interest"]=>
-      float(43.9)
-      ["principalRepayment"]=>
-      float(455.85)
+      float(15.14)
+      ["principal"]=>
+      float(3027.06)
       ["emi"]=>
-      float(499.75)
+      float(3042.19)
       ["endingBalance"]=>
       float(0)
   }
 }
 ````
+
+## Useful links
+- [How EMI is calculated](https://corporatefinanceinstitute.com/resources/commercial-lending/equated-monthly-installment-emi/)

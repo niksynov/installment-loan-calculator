@@ -22,7 +22,7 @@ class Payment
     /**
      * @var float
      */
-    public $principalRepayment;
+    public $principal;
 
     /**
      * @var float
@@ -34,14 +34,14 @@ class Payment
      */
     public $endingBalance;
 
-    public static function create($month, $beginningBalance, $interest, $principalRepayment, $emi, $endingBalance)
+    public static function create($month, $beginningBalance, $interest, $principal, $emi, $endingBalance)
     {
         $payment = new self();
 
         $payment->month = $month;
         $payment->beginningBalance = $beginningBalance;
         $payment->interest = $interest;
-        $payment->principalRepayment = $principalRepayment;
+        $payment->principal = $principal;
         $payment->emi = $emi;
         $payment->endingBalance = $endingBalance;
 

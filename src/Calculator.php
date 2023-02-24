@@ -7,41 +7,51 @@ use InvalidArgumentException;
 class Calculator
 {
     /**
-     * @param float $principalAmountBorrowed
+     * @param float $loanAmount
      * @param float $monthlyInterestRate
      * @param int $numberOfPayments
      *
      * @return array|Payment[]
      */
-    public static function calculate($principalAmountBorrowed, $monthlyInterestRate, $numberOfPayments)
+    public static function calculate($loanAmount, $monthlyInterestRate, $numberOfPayments)
     {
-        if (!is_numeric($principalAmountBorrowed) || !is_numeric($monthlyInterestRate) || !is_int($numberOfPayments)) {
+        if (!is_numeric($loanAmount) || !is_numeric($monthlyInterestRate) || !is_int($numberOfPayments)) {
             throw new InvalidArgumentException('Invalid type of method argument');
         }
 
-        $principalAmountBorrowed = floatval($principalAmountBorrowed);
+        $loanAmount = floatval($loanAmount);
         $monthlyInterestRate = floatval($monthlyInterestRate);
 
         if (0 >= $monthlyInterestRate) {
             throw new InvalidArgumentException('Interest rate must be greater than 0');
         }
 
+        if (0 >= $loanAmount) {
+            throw new InvalidArgumentException('Total amount must be greater than 0');
+        }
+
+        if (0 >= $numberOfPayments) {
+            throw new InvalidArgumentException('Number of payments must be greater than 0');
+        }
+
         $monthlyInterestRate = $monthlyInterestRate / 100;
 
-        $emi = $principalAmountBorrowed * ((pow(1 + $monthlyInterestRate, $numberOfPayments) * $monthlyInterestRate) / (pow(1 + $monthlyInterestRate, $numberOfPayments) - 1));
+        $emi = $loanAmount * ((pow(1 + $monthlyInterestRate, $numberOfPayments) * $monthlyInterestRate) / (pow(1 + $monthlyInterestRate, $numberOfPayments) - 1));
 
-        $interest = $principalAmountBorrowed * $monthlyInterestRate;
+        $interest = $loanAmount * $monthlyInterestRate;
 
         $principalRepayment = $emi - $interest;
 
-        $beginningBalance = $principalAmountBorrowed;
+        $beginningBalance = $loanAmount;
 
         $endingBalance = $beginningBalance - $principalRepayment;
 
         $payments = [];
 
+        $month = 1;
+
         $payments[] = Payment::create(
-            1,
+            $month,
             self::floatNumber($beginningBalance),
             self::floatNumber($interest),
             self::floatNumber($principalRepayment),
@@ -49,9 +59,8 @@ class Calculator
             self::floatNumber($endingBalance)
         );
 
-        $month = 2;
-
         for ($i = 1; $i < $numberOfPayments; $i++) {
+            $month++;
             $beginningBalance = $endingBalance;
             $interest = $beginningBalance * $monthlyInterestRate;
             $principalRepayment = $emi - $interest;
@@ -65,13 +74,18 @@ class Calculator
                 self::floatNumber($emi),
                 self::floatNumber($endingBalance)
             );
-
-            $month++;
         }
+
+        var_dump($payments);
 
         return $payments;
     }
 
+    /**
+     * @param $number
+     *
+     * @return float
+     */
     private static function floatNumber($number)
     {
         return (float)number_format((float)$number, 2, '.', '');
